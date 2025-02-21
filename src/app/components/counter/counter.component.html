@@ -1,0 +1,27 @@
+<div class="container">
+    <h1 class="title">Counter : {{ (counter$ | async) }}</h1>
+    
+    <div class="btns">
+        <button mat-raised-button (click)="counterAction(counterType.Increment)" color="primary" class="btn">Increment</button>
+        <button mat-raised-button (click)="counterAction(counterType.Decrement)" color="accent" class="btn">Decrement</button>
+        <button mat-raised-button (click)="counterAction(counterType.Reset)" class="btn">Reset</button>
+    </div>
+    
+    
+    <mat-card class="card">
+        <mat-card-content>
+            <mat-select [(value)]="selectedAction">
+                <mat-option [value]="counterActionType.Add">{{ counterActionType.Add }}</mat-option>
+                <mat-option [value]="counterActionType.Remove">{{ counterActionType.Remove }}</mat-option>
+            </mat-select>
+            <form class="form">
+                <mat-form-field class="formControl">
+                    <mat-label>Counter Value</mat-label>
+                    <input matInput name="count" [(ngModel)]="counterValue"/>
+                </mat-form-field>
+
+                <button class="submitBtn" mat-raised-button (click)="counterAction(counterType.Custom)" color="primary">Proceed</button>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>
