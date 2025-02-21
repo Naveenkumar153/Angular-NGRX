@@ -1,12 +1,14 @@
-import { createAction } from "@ngrx/store";
+import { createAction, props } from "@ngrx/store";
 import { Counter } from "./counter.enum";
 
 const increment = createAction(Counter.Increment);
 const decrement = createAction(Counter.Decrement);
 const reset     = createAction(Counter.Reset);
+const customCounter = createAction(Counter.Custom, props<{ count:number, value:string }>());
 
-export const CounterActions = {
+export const counterActions = {
     increment,
     decrement,
-    reset
-}
+    reset,
+    customCounter
+};
