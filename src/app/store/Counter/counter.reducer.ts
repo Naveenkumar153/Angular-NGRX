@@ -1,11 +1,6 @@
-import { Action, createReducer, on } from "@ngrx/store";
+import {  createReducer, on } from "@ngrx/store";
 import { counterActions } from "./counter.action";
-import { state } from "@angular/animations";
-import { CounterAction } from "./counter.enum";
-
-export interface CounterState {
-    count: number;
-};
+import { CounterAction, CounterState } from "./counter.model";
 
 export const initialState:CounterState = {
     count: 0,

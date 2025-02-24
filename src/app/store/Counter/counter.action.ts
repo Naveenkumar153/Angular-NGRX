@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { Counter } from "./counter.enum";
+import { Counter } from "./counter.model";
 
 const increment = createAction(Counter.Increment);
 const decrement = createAction(Counter.Decrement);
