@@ -10,6 +10,8 @@ import { counterReducer } from './store/Counter/counter.reducer';
 import { HomeComponent } from './pages/home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { NavBarModule } from './components/nav-bar/nav-bar.module';
+import { BlogComponent } from './pages/blog/blog.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    NavBarModule,
     StoreModule.forRoot({
       counter:counterReducer,
     }, {}),
