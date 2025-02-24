@@ -12,6 +12,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { NavBarModule } from './components/nav-bar/nav-bar.module';
 import { BlogComponent } from './pages/blog/blog.component';
+import { blogReducer } from './store/Blog/Blog.reducer';
+import { appReducer } from './store/global.state';
 
 @NgModule({
   declarations: [
@@ -22,9 +24,7 @@ import { BlogComponent } from './pages/blog/blog.component';
     BrowserModule,
     AppRoutingModule,
     NavBarModule,
-    StoreModule.forRoot({
-      counter:counterReducer,
-    }, {}),
+    StoreModule.forRoot(appReducer, {}),
     BrowserAnimationsModule,
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode(), trace:true })
   ],
