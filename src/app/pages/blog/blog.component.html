@@ -1,7 +1,10 @@
-<h1>Tech Blogs</h1>
+<div class="title">
+    <h1>Tech Blogs</h1>
+    <button mat-raised-button (click)="addBlog()" color="primary">Add Blog</button>
+</div>
 
 <ng-container *ngFor="let item of (blogs$ | async)">
-    <mat-card >
+    <mat-card class="blog-card">
         <mat-card-header>{{ item.title }}</mat-card-header>
         <mat-card-content>{{ item.description }}</mat-card-content>
     </mat-card>

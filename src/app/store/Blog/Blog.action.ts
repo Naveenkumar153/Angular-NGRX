@@ -1,5 +1,5 @@
-import { createAction } from "@ngrx/store";
-import { BlogActions } from "./Blog.model";
+import { createAction, props } from "@ngrx/store";
+import { BlogActions, BlogModel } from "./Blog.model";
 
 export const loadBlogs = createAction(BlogActions.Load);
-export const loadBlogsSuccess = createAction(BlogActions.LoadSuccess, (blogs: any) => ({blogs}));
+export const addBlogs  = createAction(BlogActions.Add, props<{blogInput:BlogModel}>());
