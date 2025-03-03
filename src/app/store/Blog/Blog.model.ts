@@ -15,4 +15,6 @@ export enum BlogActions {
     LoadSuccess = '[Blog] Load Blogs Success',
     LoadFailure = '[Blog] Load Blogs Failure',
     Add = '[Blog] Add Blogs',
+    Update = '[Blog] Update Blogs',
+    Delete = '[Blog] Delete Blogs'
 }
