@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Store } from '@ngrx/store';
 import { AddBlogComponent } from 'src/app/components/add-blog/add-blog.component';
 import { MaterialModule } from 'src/app/material.module';
+import { addBlogs, deleteBlog, updateBlogs } from 'src/app/store/Blog/Blog.action';
 import { BlogModel } from 'src/app/store/Blog/Blog.model';
 import { getBlogs } from 'src/app/store/Blog/Blog.selector';
 import { AppStateModel } from 'src/app/store/global.model';
@@ -33,17 +34,34 @@ export class BlogComponent implements OnInit {
   };
 
   addBlog(){
-    this.dialog.open(AddBlogComponent,{
-      width: '250px',
+   this.openDialog();
+  };
+
+  openDialog(blogId?:number, isEdit:boolean=false):void{
+    let dialogs = this.dialog.open(AddBlogComponent,{
+      width: '600px',
       height: 'auto',
-      data: { title: 'Add Blog' }
+      data: { 
+        title: isEdit ? 'Edit Blog' : 'Add Blog',
+        data: isEdit ? blogId : null
+      }
     });
-    // const blog:BlogModel = {
-    //   id: Math.random(),
-    //   title: 'Blog Title',
-    //   description: 'Blog Description'
-    // }
-    // this.store.dispatch(addBlogs({blogInput: blog}));
+    dialogs.afterClosed().subscribe((blog:BlogModel) => {
+      if(isEdit){
+        this.store.dispatch(updateBlogs({blogInput: blog}));
+      }else{
+        this.store.dispatch(addBlogs({blogInput: blog}));
+      }
+    })
+  }
+
+  editBlog(blog:BlogModel){
+    this.openDialog(blog.id, true);
+  };
+
+  deleteBlog(blogId:number){
+    console.log('blogId',blogId);
+    this.store.dispatch(deleteBlog({id:blogId}));
   }
 
 }

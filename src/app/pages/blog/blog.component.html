@@ -5,7 +5,13 @@
 
 <ng-container *ngFor="let item of (blogs$ | async)">
     <mat-card class="blog-card">
-        <mat-card-header>{{ item.title }}</mat-card-header>
+        <mat-card-header>
+            <h1>{{ item.title }}</h1>
+            <div class="edit-btn">
+                <button mat-raised-button color="primary" (click)="editBlog(item)">Edit</button>
+                <button mat-raised-button color="warn" (click)="deleteBlog(item.id)">Delete</button>
+            </div>
+        </mat-card-header>
         <mat-card-content>{{ item.description }}</mat-card-content>
     </mat-card>
 </ng-container>
