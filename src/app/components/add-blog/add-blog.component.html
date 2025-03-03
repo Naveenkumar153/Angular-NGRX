@@ -1,10 +1,23 @@
 <div class="mat-dialog-container">
-    <h1 mat-dialog-title>Delete file</h1>
-    <div mat-dialog-content>
-      Would you like to delete cat.jpeg?
+    <h1 mat-dialog-title>{{ matData.title }}</h1>
+    <div mat-dialog-content class="mat-dialog-content-container">
+      <form>
+          <mat-form-field class="mat-field">
+             <mat-label>Title</mat-label>
+             <input matInput name="title" type="text" [(ngModel)]="title" required/>
+          </mat-form-field>
+          <mat-form-field class="mat-field">
+             <mat-label>Description</mat-label>
+             <textarea matInput name="description" [(ngModel)]="description" required></textarea>
+          </mat-form-field>
+      </form>
     </div>
     <div mat-dialog-actions>
-      <button mat-button mat-dialog-close>No</button>
-      <button mat-button mat-dialog-close cdkFocusInitial>Ok</button>
+      <button mat-raised-button mat-dialog-close color="warn">
+        Cancel
+      </button>
+      <button mat-raised-button cdkFocusInitial color="primary" (click)="saveBlog()">
+        Save
+      </button>
     </div>
 </div>
