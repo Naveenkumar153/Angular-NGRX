@@ -14,6 +14,9 @@ import { NavBarModule } from './components/nav-bar/nav-bar.module';
 import { BlogComponent } from './pages/blog/blog.component';
 import { blogReducer } from './store/Blog/Blog.reducer';
 import { appReducer } from './store/global.state';
+import { EffectsModule } from '@ngrx/effects';
+import { HttpClientModule } from '@angular/common/http';
+import { BlogEffects } from './store/Blog/Blog.effects';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,9 @@ import { appReducer } from './store/global.state';
     NavBarModule,
     StoreModule.forRoot(appReducer, {}),
     BrowserAnimationsModule,
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode(), trace:true })
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode(), trace:true }),
+    EffectsModule.forRoot([BlogEffects]),
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

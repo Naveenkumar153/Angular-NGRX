@@ -1,24 +1,28 @@
 import { createReducer, on } from "@ngrx/store";
 import { BlogInitialState } from "./Blog.state";
-import { addBlogs, deleteBlog, loadBlogs, updateBlogs } from "./Blog.action";
-import { BlogModel } from "./Blog.model";
+import { blogsActions } from "./Blog.action";
+// import { addBlogs, deleteBlog, loadBlogs, updateBlogs } from "./Blog.action";
 
 
 export const blogReducer = createReducer(BlogInitialState,
-    on(loadBlogs, (state) => ({ ...state, loading: true })),
-    on(addBlogs, (state, { blogInput: { id, title, description } }) => { 
+    on(blogsActions.loadBlogs, (state) => ({ ...state })),
+    on(blogsActions.loadSuccessBlogs, (state,action) => ({ ...state, blogs:[...action.blogs]})),
+    on(blogsActions.addBlog, (state, { blogInput: { id, title, description } }) => { 
         return {
             ...state,
             blogs: [...state.blogs, { id, title, description }]
         }
     }),
-    on(updateBlogs, (state, { blogInput: { id, title, description } }) => {
+    on(blogsActions.updateBlog, (state, { blogInput: { id, title, description } }) => {
         return {
             ...state,
-            blogs: state.blogs.map(blog => blog.id === id ? { ...blog, title, description } : blog)
+            blogs: state.blogs.map(blog => {
+                debugger;
+                return blog.id === id ? { ...blog, title, description } : blog
+            })
         }
     }),
-    on(deleteBlog, (state,  { id }) => {
+    on(blogsActions.deleteBlog, (state,  { id }) => {
         return {
             ...state,
             blogs: state.blogs.filter(blog => blog.id !== id)
