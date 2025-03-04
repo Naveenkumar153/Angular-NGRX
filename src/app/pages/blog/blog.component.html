@@ -3,15 +3,28 @@
     <button mat-raised-button (click)="addBlog()" color="primary">Add Blog</button>
 </div>
 
-<ng-container *ngFor="let item of (blogs$ | async)">
+<ng-container *ngIf="errorMsg; else blogList">
     <mat-card class="blog-card">
         <mat-card-header>
-            <h1>{{ item.title }}</h1>
-            <div class="edit-btn">
-                <button mat-raised-button color="primary" (click)="editBlog(item)">Edit</button>
-                <button mat-raised-button color="warn" (click)="deleteBlog(item.id)">Delete</button>
-            </div>
+            <h1>No Blogs</h1>
         </mat-card-header>
-        <mat-card-content>{{ item.description }}</mat-card-content>
+        <mat-card-content>No Blogs</mat-card-content>
     </mat-card>
 </ng-container>
+
+<ng-template #blogList>
+    <ng-container *ngFor="let item of (blogs$ | async)">
+        <mat-card class="blog-card">
+            <mat-card-header>
+                <h1>{{ item.title }}</h1>
+                <div class="edit-btn">
+                    <button mat-raised-button color="primary" (click)="editBlog(item)">Edit</button>
+                    <button mat-raised-button color="warn" (click)="deleteBlog(item.id)">Delete</button>
+                </div>
+            </mat-card-header>
+            <mat-card-content>{{ item.description }}</mat-card-content>
+        </mat-card>
+    </ng-container>
+</ng-template>
+
+

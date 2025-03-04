@@ -1,4 +1,4 @@
-import { AsyncPipe, CommonModule } from '@angular/common';
+import { AsyncPipe, CommonModule, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -10,9 +10,10 @@ import { AddBlogComponent } from 'src/app/components/add-blog/add-blog.component
 import { MaterialModule } from 'src/app/material.module';
 import { blogsActions } from 'src/app/store/Blog/Blog.action';
 // import { addBlogs, deleteBlog, updateBlogs } from 'src/app/store/Blog/Blog.action';
-import { BlogModel } from 'src/app/store/Blog/Blog.model';
-import { getBlogs } from 'src/app/store/Blog/Blog.selector';
+import { BlogModel, Blogs } from 'src/app/store/Blog/Blog.model';
+import { getBlogInfo, getBlogs } from 'src/app/store/Blog/Blog.selector';
 import { AppStateModel } from 'src/app/store/global.model';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-blog',
@@ -24,16 +25,24 @@ import { AppStateModel } from 'src/app/store/global.model';
     CommonModule,
     MatButtonModule,
     MatDialogModule,
+    MatSnackBarModule,
   ]
 })
 export class BlogComponent implements OnInit {
   // blogs = this.store.select(blogsActions['[Blog]LoadBlogs']) 
   blogs$ = this.store.select(getBlogs);
+  errorMsg:string = '';
   
-  constructor(private store:Store<AppStateModel>,public dialog: MatDialog) {}
+  constructor(private store:Store<AppStateModel>,public dialog: MatDialog, private snackBar:MatSnackBar ) {}
   
   ngOnInit(): void {
     this.store.dispatch(blogsActions.loadBlogs());
+    this.store.select(getBlogInfo).subscribe((blog:Blogs) => {
+      if(blog.errorMsg){
+        this.errorMsg = blog.errorMsg;
+        this.snackBar.open(blog.errorMsg, 'Close', { duration: 3000 });
+      }
+    });
   };
 
   addBlog(){
