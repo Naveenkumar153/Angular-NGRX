@@ -35,8 +35,9 @@ export class AddBlogComponent implements OnInit{
   }
 
   saveBlog():void{
+    const id = this.matData.data ?? (Math.random());
     this.dialogRef.close({
-      id: this.matData.data ?? (Math.random()),
+      id: id.toString(),
       title: this.title,
       description: this.description,
     });
