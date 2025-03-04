@@ -6,3 +6,5 @@ import { state } from "@angular/animations";
 const blogState               = createFeatureSelector<Blogs>('blog');
 export const getBlogs         = createSelector(blogState,(state:Blogs) => state.blogs);
 export const getBlogBasedOnId = (id:number) =>  createSelector(blogState, (state:Blogs) => state.blogs.find(blog => blog.id === id) as BlogModel ?? null);
+
+export const getBlogInfo      = createSelector(blogState, (state:Blogs) => state);

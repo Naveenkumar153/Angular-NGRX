@@ -12,5 +12,17 @@ constructor() { }
 
     getBlogs():Observable<BlogModel[]> {
         return this.http.get<BlogModel[]>(this.blogUrl);
+    };
+
+    addBlogs(blogInput:BlogModel):Observable<BlogModel> {
+        return this.http.post<BlogModel>(this.blogUrl, blogInput);
+    };
+
+    updateBlog(blogInput:BlogModel):Observable<BlogModel>{
+        return this.http.put<BlogModel>(`${this.blogUrl}/${blogInput.id.toString()}`, blogInput);
+    };
+
+    deleteBlog(id:number):Observable<BlogModel> {
+        return this.http.delete<BlogModel>(`${this.blogUrl}/${id}`);
     }
 }

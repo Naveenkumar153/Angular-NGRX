@@ -6,8 +6,9 @@ export interface BlogModel{
 
 export interface Blogs{
     blogs: BlogModel[];
+    
     // loading: boolean;
-    // error: string;
+    errorMsg: string;
 }
 
 export enum BlogActions {

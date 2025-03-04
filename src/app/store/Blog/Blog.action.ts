@@ -10,9 +10,13 @@ export const blogsActions = createActionGroup({
     source: 'Blog',
     events:{
         loadBlogs: emptyProps(),
+        loadSuccessBlogs: props<{blogs:BlogModel[]}>(),
+        loadFailureBlogs: props<{errorMsg:string}>(),
+        addSuccessBlogs: props<{blogInput:BlogModel}>(),
         addBlog: props<{blogInput:BlogModel}>(),
         updateBlog: props<{blogInput:BlogModel}>(),
+        updateBlogSuccess: props<{blogInput:BlogModel}>(),
         deleteBlog: props<{id:number}>(),
-        loadSuccessBlogs: props<{blogs:BlogModel[]}>(),
+        deleteBlogSuccess: props<{id:number}>(),
     }
 });
