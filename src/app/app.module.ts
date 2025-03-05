@@ -17,7 +17,8 @@ import { appReducer } from './store/global.state';
 import { EffectsModule } from '@ngrx/effects';
 import { HttpClientModule } from '@angular/common/http';
 import { BlogEffects } from './store/Blog/Blog.effects';
-
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { GlobalEffects } from './store/global.effect';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,8 +31,9 @@ import { BlogEffects } from './store/Blog/Blog.effects';
     StoreModule.forRoot(appReducer, {}),
     BrowserAnimationsModule,
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode(), trace:true }),
-    EffectsModule.forRoot([BlogEffects]),
+    EffectsModule.forRoot([BlogEffects,GlobalEffects]),
     HttpClientModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
