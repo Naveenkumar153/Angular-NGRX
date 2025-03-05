@@ -1,0 +1,11 @@
+
+
+.spinner-parent{
+    // position: relative;
+    &__child{
+        position: absolute;
+        top: 50%;
+        z-index: 1;
+        left: 50%;
+    }
+}

@@ -6,8 +6,7 @@ export interface BlogModel{
 
 export interface Blogs{
     blogs: BlogModel[];
-    
-    // loading: boolean;
+    loader: boolean;
     errorMsg: string;
 }
 

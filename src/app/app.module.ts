@@ -19,12 +19,17 @@ import { HttpClientModule } from '@angular/common/http';
 import { BlogEffects } from './store/Blog/Blog.effects';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { GlobalEffects } from './store/global.effect';
+import { SpinnerComponent } from './components/spinner/spinner.component';
+import { MaterialModule } from './material.module';
+import { CommonModule } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
     ButtonComponent,
+    SpinnerComponent,
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     NavBarModule,
@@ -33,7 +38,8 @@ import { GlobalEffects } from './store/global.effect';
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode(), trace:true }),
     EffectsModule.forRoot([BlogEffects,GlobalEffects]),
     HttpClientModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]

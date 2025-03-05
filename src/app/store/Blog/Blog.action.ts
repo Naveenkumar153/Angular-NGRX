@@ -18,5 +18,6 @@ export const blogsActions = createActionGroup({
         updateBlogSuccess: props<{blogInput:BlogModel}>(),
         deleteBlog: props<{id:number}>(),
         deleteBlogSuccess: props<{id:number}>(),
+        loader: props<{loader:boolean}>(),
     }
 });

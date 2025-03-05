@@ -8,7 +8,8 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatIconModule } from "@angular/material/icon";
 import { MatDialogModule } from "@angular/material/dialog";
-
+import { SpinnerComponent } from "./components/spinner/spinner.component";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 @NgModule({
     exports:[
         MatCardModule,
@@ -20,6 +21,7 @@ import { MatDialogModule } from "@angular/material/dialog";
         MatMenuModule,
         MatIconModule,
         MatDialogModule,
+        MatProgressSpinnerModule
     ],
     imports:[],
     declarations:[],

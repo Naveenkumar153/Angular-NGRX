@@ -8,3 +8,5 @@ export const getBlogs         = createSelector(blogState,(state:Blogs) => state.
 export const getBlogBasedOnId = (id:number) =>  createSelector(blogState, (state:Blogs) => state.blogs.find(blog => blog.id === id) as BlogModel ?? null);
 
 export const getBlogInfo      = createSelector(blogState, (state:Blogs) => state);
+
+export const getLoader        = createSelector(blogState, (state:Blogs) => state.loader);

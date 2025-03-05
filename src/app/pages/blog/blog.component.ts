@@ -36,13 +36,16 @@ export class BlogComponent implements OnInit {
   constructor(private store:Store<AppStateModel>,public dialog: MatDialog, private snackBar:MatSnackBar ) {}
   
   ngOnInit(): void {
-    this.store.dispatch(blogsActions.loadBlogs());
-    this.store.select(getBlogInfo).subscribe((blog:Blogs) => {
-      if(blog.errorMsg){
-        this.errorMsg = blog.errorMsg;
-        this.snackBar.open(blog.errorMsg, 'Close', { duration: 3000 });
-      }
-    });
+    this.store.dispatch(blogsActions.loader({loader: true}));
+    setTimeout(() => {
+      this.store.dispatch(blogsActions.loadBlogs());
+      this.store.select(getBlogInfo).subscribe((blog:Blogs) => {
+        if(blog.errorMsg){
+          this.errorMsg = blog.errorMsg;
+          this.snackBar.open(blog.errorMsg, 'Close', { duration: 3000 });
+        }
+      });
+    },2000);
   };
 
   addBlog(){
