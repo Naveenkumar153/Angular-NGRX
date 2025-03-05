@@ -1,0 +1,17 @@
+<div class="container">
+    <h3>{{ name }}</h3>
+    <h3 [innerHTML]="name"></h3>
+
+    <button style="margin: 10px;" mat-raised-button color="primary" disabled="{{ 'true' }}">Change Name</button>
+    <button mat-raised-button color="primary" [disabled]="disabled">Change Name</button>
+    <div class="comments">
+        <input name="comment" type="text" #comment>
+        <button mat-raised-button color="primary" (click)="addComment(comment.value)">Add Comment</button>
+        <ng-container *ngFor="let item of comments">
+            <p>{{ item }}</p>
+            <p [textContent]="item"></p>
+            <p [innerHTML]="item"></p>
+            <p [innerText]="item"></p>
+        </ng-container>
+    </div>
+</div>
