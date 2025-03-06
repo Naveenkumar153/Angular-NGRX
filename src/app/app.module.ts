@@ -22,6 +22,8 @@ import { GlobalEffects } from './store/global.effect';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { MaterialModule } from './material.module';
 import { CommonModule } from '@angular/common';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { CustomSerializer } from './store/router/customSerilizer';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +41,10 @@ import { CommonModule } from '@angular/common';
     EffectsModule.forRoot([BlogEffects,GlobalEffects]),
     HttpClientModule,
     MatSnackBarModule,
-    MaterialModule
+    MaterialModule,
+    StoreRouterConnectingModule.forRoot({
+      serializer:CustomSerializer
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

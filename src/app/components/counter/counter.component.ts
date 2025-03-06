@@ -12,6 +12,7 @@ import {MatInputModule} from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { getCounter } from 'src/app/store/Counter/counter.selector';
 import { AppStateModel } from 'src/app/store/global.model';
+import { routerStateInfo } from 'src/app/store/router/router.selector';
 
 @Component({
   selector: 'app-counter',
@@ -39,6 +40,9 @@ export class CounterComponent implements OnInit {
   
   ngOnInit(): void {
     this.counter$ = this.store.select(getCounter);
+    this.store.select(routerStateInfo).subscribe(state => {
+      console.log('state',state);
+    })
   };
 
   counterAction(type:Counter){
