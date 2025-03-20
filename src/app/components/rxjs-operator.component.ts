@@ -3,15 +3,26 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { combineLatest, interval, Observable, of } from 'rxjs';
-import { debounceTime, map, startWith, take, tap, zip, zipWith } from 'rxjs/operators';
+import { combineLatest, interval, Observable, of, Subject } from 'rxjs';
+import { debounceTime, map, startWith, take, tap,  zipWith } from 'rxjs/operators';
+import { zip } from 'rxjs';
+import { MatButtonModule } from '@angular/material/button';
+
+
+type Durum = ['flat bread', 'meat', 'sauce', 'tomato', 'cabbage'];
+
+let flatBred = 0;
+let meat = 0;
+let sauce = 0;
+let tomato = 0;
+let cabbage = 0;
 
 @Component({
   selector: 'app-rxjs-operator',
   templateUrl: './rxjs-operator.component.html',
   styleUrls: ['./rxjs-operator.component.scss'],
   standalone: true,
-  imports:[FormsModule, ReactiveFormsModule, CommonModule, MatInputModule, MatSelectModule],
+  imports:[FormsModule, ReactiveFormsModule, CommonModule, MatInputModule, MatSelectModule, MatButtonModule],
 })
 export class RxjsComponent implements OnInit {
 
@@ -27,9 +38,18 @@ export class RxjsComponent implements OnInit {
 
   filteredItems$!: Observable<{ name: string; category: string }[]>;
 
+  durms$!    : Observable<any>;
+  _flatBread$ = new Subject<'flat bread'>();
+  _meat$    = new Subject<'meat'>();
+  _sauce$   = new Subject<'sauce'>();
+  _tomato$  = new Subject<'tomato'>();
+  _cabbage$ = new Subject<'cabbage'>();
+
   ngOnInit() {
     // this.combineLatestMethod();
-    this.combineLatestWithSimpleExample();
+    // this.combineLatestWithSimpleExample();
+    this.zipOperator();
+    this.combineLatestOperator();
   };
 
   combineLatestMethod() {
@@ -67,5 +87,36 @@ export class RxjsComponent implements OnInit {
     combined$.subscribe(([value1, value2]) => {
       console.log('Combined values:', value1, value2);
     });
-  }
+  };
+
+  zipOperator(): void {
+    this.durms$ = zip([
+      this._flatBread$.pipe(map(count => `${count} ${++flatBred}`),tap(console.log)),
+      this._meat$.pipe(map(count => `${count} ${++meat}`),tap(console.log)),
+      this._sauce$.pipe(map(count => `${count} ${++sauce}`),tap(console.log)),
+      this._tomato$.pipe(map(count => `${count} ${++tomato}`),tap(console.log)),
+      this._cabbage$.pipe(map(count => `${count} ${++cabbage}`),tap(console.log)),
+    ])
+    .pipe(
+      map(([flatBread, meat, sauce, tomato, cabbage]) => {
+        return [flatBread, meat, sauce, tomato, cabbage];
+      }),
+      tap(durum => console.log('durum', durum))
+    );
+  };
+  combineLatestOperator(): void {
+    this.durms$ = combineLatest([
+      this._flatBread$.pipe(map(count => `${count} ${++flatBred}`),tap(console.log)),
+      this._meat$.pipe(map(count => `${count} ${++meat}`),tap(console.log)),
+      this._sauce$.pipe(map(count => `${count} ${++sauce}`),tap(console.log)),
+      this._tomato$.pipe(map(count => `${count} ${++tomato}`),tap(console.log)),
+      this._cabbage$.pipe(map(count => `${count} ${++cabbage}`),tap(console.log)),
+    ])
+    .pipe(
+      map(([flatBread, meat, sauce, tomato, cabbage]) => {
+        return [flatBread, meat, sauce, tomato, cabbage];
+      }),
+      tap(durum => console.log('durum', durum))
+    );
+  };
 }
