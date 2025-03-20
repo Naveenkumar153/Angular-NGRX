@@ -1,0 +1,19 @@
+<div class="container">
+    <form class="container-inputs">
+        <mat-form-field>
+            <mat-label>Search items</mat-label>
+            <input [formControl]="searchControl" placeholder="Search items" matInput/>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Items</mat-label>
+            <mat-select [formControl]="filterControl">
+                <mat-option value="">All</mat-option>
+                <mat-option  value="category1">Category 1</mat-option>
+                <mat-option  value="category2">Category 2</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </form>
+    <ul>
+        <li *ngFor="let item of filteredItems$ | async">{{ item.name }}</li>
+    </ul>
+</div>

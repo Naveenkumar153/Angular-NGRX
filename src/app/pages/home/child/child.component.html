@@ -1,0 +1,8 @@
+<p>child works! {{ currentProduct && currentProduct.name }}</p>
+
+<input type="text" [(ngModel)]="name">
+<button mat-raised-button color="primary" [disabled]="name.length === 0" (click)="passInputValueToParent()">click</button>
+
+ <div class="add-to-cart">
+    <button mat-raised-button color="primary" (click)="addItemToCart()">Add to Cart</button>
+  </div>

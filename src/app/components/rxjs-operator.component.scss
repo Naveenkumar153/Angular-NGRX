@@ -1,0 +1,25 @@
+
+
+.container{
+    .container-inputs{
+        display: flex;
+        align-items: center;
+        margin: 20px;
+        mat-form-field{
+            &:nth-child(1){
+                width: 60%;
+                margin-right: 10px;
+            }
+            &:last-child{
+                width: 40%;
+            }
+        }
+    }
+    ul{
+        margin: 0 auto;
+        width: 50%;
+        li{
+
+        }
+    }
+}
