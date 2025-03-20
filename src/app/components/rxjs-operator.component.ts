@@ -4,7 +4,7 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { combineLatest, interval, Observable, of, Subject } from 'rxjs';
-import { debounceTime, map, startWith, take, tap,  zipWith } from 'rxjs/operators';
+import { debounceTime, map, mergeMap, startWith, take, tap,  zipWith } from 'rxjs/operators';
 import { zip } from 'rxjs';
 import { MatButtonModule } from '@angular/material/button';
 
@@ -16,6 +16,16 @@ let meat = 0;
 let sauce = 0;
 let tomato = 0;
 let cabbage = 0;
+
+interface Order{
+  amount:number,
+  customerId:number,
+};
+
+interface Product{
+  product:Durum,
+  customerId:number,
+}
 
 @Component({
   selector: 'app-rxjs-operator',
@@ -39,6 +49,9 @@ export class RxjsComponent implements OnInit {
   filteredItems$!: Observable<{ name: string; category: string }[]>;
 
   durms$!    : Observable<any>;
+  delivery$! : Observable<Product>;
+
+  _order     = new Subject<Order>();
   _flatBread$ = new Subject<'flat bread'>();
   _meat$    = new Subject<'meat'>();
   _sauce$   = new Subject<'sauce'>();
@@ -48,8 +61,10 @@ export class RxjsComponent implements OnInit {
   ngOnInit() {
     // this.combineLatestMethod();
     // this.combineLatestWithSimpleExample();
-    this.zipOperator();
-    this.combineLatestOperator();
+    // this.zipOperator();
+    // this.combineLatestOperator();
+    // this.mergeMapOperator();
+    this.mergeMapExampleTwo();
   };
 
   combineLatestMethod() {
@@ -101,7 +116,7 @@ export class RxjsComponent implements OnInit {
       map(([flatBread, meat, sauce, tomato, cabbage]) => {
         return [flatBread, meat, sauce, tomato, cabbage];
       }),
-      tap(durum => console.log('durum', durum))
+      // tap(durum => console.log('durum', durum))
     );
   };
   combineLatestOperator(): void {
@@ -119,4 +134,45 @@ export class RxjsComponent implements OnInit {
       tap(durum => console.log('durum', durum))
     );
   };
+
+  mergeMapOperator():void{
+    this.delivery$ = this._order.pipe(
+      tap((order) => console.log("New order: ", order)),
+      mergeMap(({ amount,customerId }) => {
+        console.log('amount,customerId',amount,customerId);
+        return this.durms$.pipe(
+          tap( durms => console.log('mergeMap', durms)),
+          take(amount as number),
+          map((durm) => ({ product: durm, customerId })),
+        )
+      }),
+      tap((product) => console.log('Delivered Product: ', product)),
+    );
+  };
+
+  dispatchOrder():void{
+    const amount = Math.floor(Math.random() * 3) + 1;
+    let customerId = 0;
+    ++customerId;
+    this._order.next({ amount, customerId });
+  };
+
+  mergeMapExampleTwo(){
+    let interval1$ = interval(1000);
+    let interval2$ = interval(500);
+    let srcObservable= of(1,2,3,4)
+    let innerObservable= of('A','B','C','D')
+    
+    srcObservable.pipe(
+      mergeMap( val => {
+        console.log('Source value '+val)
+        console.log('starting new observable')
+        return innerObservable
+      })
+    )
+    .subscribe(ret=> {
+      console.log('Recd ' + ret);
+    })
+ 
+  }
 }

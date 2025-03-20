@@ -20,6 +20,8 @@
 
 <!-- Zip operator & combineLatest operator-->
 
+<button mat-raised-button (click)="dispatchOrder()">Order Durm</button>
+<hr>
 <button mat-raised-button (click)="_flatBread$.next('flat bread')">Add flat bread</button>
 <button mat-raised-button (click)="_meat$.next('meat')">meat</button>
 <button mat-raised-button (click)="_sauce$.next('sauce')">_sauce</button>
@@ -30,4 +32,10 @@
     <ul>
         <li *ngFor="let item of durms$ | async">{{ item }}</li>
     </ul>
+</ng-container>
+
+<ng-container *ngIf="delivery$ | async as product">
+    <section *ngIf="product?.product">
+        <pre>{{ product | json }}</pre>
+    </section>
 </ng-container>
