@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { DataSharingService } from '@src/shared/services/data-sharing.service';
 import { Subject, Subscription } from 'rxjs';
-import { DataSharingService } from 'src/app/shared/data-sharing.service';
 
 @Component({
   selector: 'app-child',

@@ -1,12 +1,12 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { MasterService } from "src/app/shared/master.service";
 import { blogsActions } from "./Blog.action";
 import { catchError, EMPTY, exhaustMap, map, of, switchMap, tap } from "rxjs";
 import { BlogModel } from "./Blog.model";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { globalActions } from "../global.action";
 import { Store } from "@ngrx/store";
+import { MasterService } from "@src/shared/services/master.service";
 
 
 @Injectable()

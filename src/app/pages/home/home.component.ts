@@ -5,8 +5,8 @@ import { NavBarModule } from 'src/app/components/nav-bar/nav-bar.module';
 import { ChildComponent } from './child/child.component';
 import { Subject, Subscription } from 'rxjs';
 import { MatButtonModule } from '@angular/material/button';
-import { DataSharingService } from 'src/app/shared/data-sharing.service';
 import { RxjsComponent } from 'src/app/components/rxjs-operator.component';
+import { DataSharingService } from '@src/shared/services/data-sharing.service';
 
 @Component({
   selector: 'app-home',
