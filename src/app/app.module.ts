@@ -24,6 +24,7 @@ import { MaterialModule } from './material.module';
 import { CommonModule } from '@angular/common';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { CustomSerializer } from './store/router/customSerilizer';
+import { PermissionDirective } from './shared/directives/permission.directive';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,6 +43,7 @@ import { CustomSerializer } from './store/router/customSerilizer';
     HttpClientModule,
     MatSnackBarModule,
     MaterialModule,
+    PermissionDirective,
     StoreRouterConnectingModule.forRoot({
       serializer:CustomSerializer
     })
