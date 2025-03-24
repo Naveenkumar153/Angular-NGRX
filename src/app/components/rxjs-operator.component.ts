@@ -16,6 +16,7 @@ let meat = 0;
 let sauce = 0;
 let tomato = 0;
 let cabbage = 0;
+let customerId = 0;
 
 interface Order{
   amount:number,
@@ -64,7 +65,33 @@ export class RxjsComponent implements OnInit {
     // this.zipOperator();
     // this.combineLatestOperator();
     // this.mergeMapOperator();
-    this.mergeMapExampleTwo();
+    // this.mergeMapExampleTwo();
+
+    this.durms$ = zip([
+      this._flatBread$.pipe(map(count => `${count} ${++flatBred}`),tap(console.log)),
+      this._meat$.pipe(map(count => `${count} ${++meat}`),tap(console.log)),
+      this._sauce$.pipe(map(count => `${count} ${++sauce}`),tap(console.log)),
+      this._tomato$.pipe(map(count => `${count} ${++tomato}`),tap(console.log)),
+      this._cabbage$.pipe(map(count => `${count} ${++cabbage}`),tap(console.log)),
+    ])
+    .pipe( 
+      map(([flatBread, meat, sauce, tomato, cabbage]) => {
+        return [flatBread, meat, sauce, tomato, cabbage];
+      }),
+      tap(durum => console.log('durum', durum))
+    );
+
+    this.delivery$ = this._order.pipe(
+      tap((order) => console.log("New order: ", order)),
+      mergeMap(({ amount,customerId }) => {
+        console.log('amount,customerId',amount,customerId);
+        return this.durms$.pipe(
+          take(amount as number),
+          map((durm) => ({ product: durm, customerId })),
+        )
+      }),
+      tap((product) => console.log('Delivered Product: ', product)),
+    );
   };
 
   combineLatestMethod() {
@@ -105,18 +132,18 @@ export class RxjsComponent implements OnInit {
   };
 
   zipOperator(): void {
-    this.durms$ = zip([
+    this.durms$ = zip(
       this._flatBread$.pipe(map(count => `${count} ${++flatBred}`),tap(console.log)),
       this._meat$.pipe(map(count => `${count} ${++meat}`),tap(console.log)),
       this._sauce$.pipe(map(count => `${count} ${++sauce}`),tap(console.log)),
       this._tomato$.pipe(map(count => `${count} ${++tomato}`),tap(console.log)),
       this._cabbage$.pipe(map(count => `${count} ${++cabbage}`),tap(console.log)),
-    ])
+    )
     .pipe(
-      map(([flatBread, meat, sauce, tomato, cabbage]) => {
-        return [flatBread, meat, sauce, tomato, cabbage];
-      }),
-      // tap(durum => console.log('durum', durum))
+      // map(([flatBread, meat, sauce, tomato, cabbage]) => {
+      //   return [flatBread, meat, sauce, tomato, cabbage];
+      // }),
+      tap(durum => console.log('durum', durum))
     );
   };
   combineLatestOperator(): void {
@@ -128,9 +155,9 @@ export class RxjsComponent implements OnInit {
       this._cabbage$.pipe(map(count => `${count} ${++cabbage}`),tap(console.log)),
     ])
     .pipe(
-      map(([flatBread, meat, sauce, tomato, cabbage]) => {
-        return [flatBread, meat, sauce, tomato, cabbage];
-      }),
+      // map(([flatBread, meat, sauce, tomato, cabbage]) => {
+      //   return [flatBread, meat, sauce, tomato, cabbage];
+      // }),
       tap(durum => console.log('durum', durum))
     );
   };
@@ -152,7 +179,6 @@ export class RxjsComponent implements OnInit {
 
   dispatchOrder():void{
     const amount = Math.floor(Math.random() * 3) + 1;
-    let customerId = 0;
     ++customerId;
     this._order.next({ amount, customerId });
   };

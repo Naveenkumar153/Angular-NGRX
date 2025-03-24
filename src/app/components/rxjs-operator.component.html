@@ -28,11 +28,11 @@
 <button mat-raised-button (click)="_tomato$.next('tomato')">_tomato</button>
 <button mat-raised-button (click)="_cabbage$.next('cabbage')">Add flat bread</button>
 
-<ng-container *ngIf="durms$ | async">
+<!-- <ng-container *ngIf="durms$ | async">
     <ul>
         <li *ngFor="let item of durms$ | async">{{ item }}</li>
     </ul>
-</ng-container>
+</ng-container> -->
 
 <ng-container *ngIf="delivery$ | async as product">
     <section *ngIf="product?.product">
