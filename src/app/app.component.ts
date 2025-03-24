@@ -50,7 +50,6 @@ export class AppComponent implements OnInit {
   clousreExample() {
     let counter = Date.now();
     const increment = () => {
-      debugger;
       console.log(counter);
     };
     increment();
