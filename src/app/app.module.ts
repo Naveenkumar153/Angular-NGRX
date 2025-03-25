@@ -25,6 +25,8 @@ import { CommonModule } from '@angular/common';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { CustomSerializer } from './store/router/customSerilizer';
 import { PermissionDirective } from './shared/directives/permission.directive';
+import { FormComponent } from './components/form/form.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,6 +46,9 @@ import { PermissionDirective } from './shared/directives/permission.directive';
     MatSnackBarModule,
     MaterialModule,
     PermissionDirective,
+    FormComponent,
+    ReactiveFormsModule,
+    FormsModule,
     StoreRouterConnectingModule.forRoot({
       serializer:CustomSerializer
     })
