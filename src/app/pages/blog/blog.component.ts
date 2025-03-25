@@ -28,56 +28,56 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
     MatSnackBarModule,
   ]
 })
-export class BlogComponent implements OnInit {
-  // blogs = this.store.select(blogsActions['[Blog]LoadBlogs']) 
-  blogs$ = this.store.select(getBlogs);
-  errorMsg:string = '';
-  
-  constructor(private store:Store<AppStateModel>,public dialog: MatDialog, private snackBar:MatSnackBar ) {}
-  
-  ngOnInit(): void {
-    this.store.dispatch(blogsActions.loader({loader: true}));
-    setTimeout(() => {
-      this.store.dispatch(blogsActions.loadBlogs());
-      this.store.select(getBlogInfo).subscribe((blog:Blogs) => {
-        if(blog.errorMsg){
-          this.errorMsg = blog.errorMsg;
-          this.snackBar.open(blog.errorMsg, 'Close', { duration: 3000 });
+  export class BlogComponent implements OnInit {
+    // blogs = this.store.select(blogsActions['[Blog]LoadBlogs']) 
+    blogs$ = this.store.select(getBlogs);
+    errorMsg:string = '';
+    
+    constructor(private store:Store<AppStateModel>,public dialog: MatDialog, private snackBar:MatSnackBar ) {}
+    
+    ngOnInit(): void {
+      this.store.dispatch(blogsActions.loader({loader: true}));
+      setTimeout(() => {
+        this.store.dispatch(blogsActions.loadBlogs());
+        this.store.select(getBlogInfo).subscribe((blog:Blogs) => {
+          if(blog.errorMsg){
+            this.errorMsg = blog.errorMsg;
+            this.snackBar.open(blog.errorMsg, 'Close', { duration: 3000 });
+          }
+        });
+      },2000);
+    };
+
+    addBlog(){
+    this.openDialog();
+    };
+
+    openDialog(blogId?:number, isEdit:boolean=false):void{
+      let dialogs = this.dialog.open(AddBlogComponent,{
+        width: '600px',
+        height: 'auto',
+        data: { 
+          title: isEdit ? 'Edit Blog' : 'Add Blog',
+          data: isEdit ? blogId : null
         }
       });
-    },2000);
-  };
+      dialogs.afterClosed().subscribe((blog:BlogModel) => {
+        console.log('blog',blog);
+        if(isEdit){
+          this.store.dispatch(blogsActions.updateBlog({blogInput: blog}));
+        }else{
+          this.store.dispatch(blogsActions.addBlog({blogInput: blog}));
+        }
+      })
+    }
 
-  addBlog(){
-   this.openDialog();
-  };
+    editBlog(blog:BlogModel){
+      this.openDialog(blog.id, true);
+    };
 
-  openDialog(blogId?:number, isEdit:boolean=false):void{
-    let dialogs = this.dialog.open(AddBlogComponent,{
-      width: '600px',
-      height: 'auto',
-      data: { 
-        title: isEdit ? 'Edit Blog' : 'Add Blog',
-        data: isEdit ? blogId : null
-      }
-    });
-    dialogs.afterClosed().subscribe((blog:BlogModel) => {
-      console.log('blog',blog);
-      if(isEdit){
-        this.store.dispatch(blogsActions.updateBlog({blogInput: blog}));
-      }else{
-        this.store.dispatch(blogsActions.addBlog({blogInput: blog}));
-      }
-    })
+    deleteBlog(blogId:number){
+      console.log('blogId',blogId);
+      this.store.dispatch(blogsActions.deleteBlog({id:blogId}));
+    }
+
   }
-
-  editBlog(blog:BlogModel){
-    this.openDialog(blog.id, true);
-  };
-
-  deleteBlog(blogId:number){
-    console.log('blogId',blogId);
-    this.store.dispatch(blogsActions.deleteBlog({id:blogId}));
-  }
-
-}

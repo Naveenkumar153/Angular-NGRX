@@ -1,17 +1,17 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { BlogModel } from "@src/store/Blog/Blog.model";
-import { catchError, Observable, throwError } from "rxjs";
+import { catchError, Observable, shareReplay, throwError } from "rxjs";
 @Injectable({
   providedIn: 'root'
 })
 export class MasterService {
-constructor() { }
+    constructor() { }
     private readonly blogUrl = 'http://localhost:3000/blogs';
     private http = inject(HttpClient);
 
     getBlogs():Observable<BlogModel[]> {
-        return this.http.get<BlogModel[]>(this.blogUrl);
+        return this.http.get<BlogModel[]>(this.blogUrl).pipe(shareReplay(1));
     };
 
     addBlogs(blogInput:BlogModel):Observable<BlogModel> {
