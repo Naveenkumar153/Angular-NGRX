@@ -27,6 +27,12 @@ import { CustomSerializer } from './store/router/customSerilizer';
 import { PermissionDirective } from './shared/directives/permission.directive';
 import { FormComponent } from './components/form/form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SignalsComponent } from './pages/Signals/signals.component';
+import { FirstComponent } from './components/deferViews/first.component';
+import { SecondComponent } from './components/deferViews/second.component';
+import { ThiredComponent } from './components/deferViews/thired.component';
+import { FourthComponent } from './components/deferViews/fourth.component';
+import { FivethComponent } from './components/deferViews/fiveth.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,7 +46,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NavBarModule,
     StoreModule.forRoot(appReducer, {}),
     BrowserAnimationsModule,
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode(), trace:true }),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode(), trace:true , connectInZone: true}),
     EffectsModule.forRoot([BlogEffects,GlobalEffects]),
     HttpClientModule,
     MatSnackBarModule,
@@ -49,6 +55,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormComponent,
     ReactiveFormsModule,
     FormsModule,
+    SignalsComponent,
+    FirstComponent,
+    SecondComponent,
+    ThiredComponent,
+    FourthComponent,
+    FivethComponent,
     StoreRouterConnectingModule.forRoot({
       serializer:CustomSerializer
     })

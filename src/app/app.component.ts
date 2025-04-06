@@ -8,6 +8,7 @@ import { asapScheduler, asyncScheduler, map, Observable, observeOn, of, queueSch
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
+  isVisiable:boolean = false;
   title = 'ngrx';
   sub = new Subject<'Subject hello'>();
   permission:number[] = [1,2,3,4,5,6,7,8,9,10];

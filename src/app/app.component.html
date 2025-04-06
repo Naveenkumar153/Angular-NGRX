@@ -2,7 +2,7 @@
 <router-outlet></router-outlet>
 <app-spinner></app-spinner> -->
 
-<app-form></app-form>
+<!-- <app-form></app-form> -->
 
 <!-- <main>
     <h1>Rxjs Scheduler</h1>
@@ -10,3 +10,20 @@
     <h2 appPermission [hello]="permission[11]">Permission Not Allowed</h2>
     <button mat-raised-button (click)="runAsync()">Run Async</button>
 </main> -->
+
+<!-- <app-signals></app-signals> -->
+
+<first-component></first-component>
+<second-component #two></second-component>
+<thired-component></thired-component>
+<fourth-component></fourth-component>
+<!-- @defer (on timer(2000)) { -->
+<!-- @defer (on hover(two)) { -->
+<!-- @defer (on immediate) { -->
+@defer (when isVisiable) {
+    <fiveth-component></fiveth-component>
+}@placeholder {
+    <h1>Loading...</h1>
+}
+
+<button (click)="isVisiable = true">Click</button>
