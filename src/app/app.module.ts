@@ -27,6 +27,7 @@ import { CustomSerializer } from './store/router/customSerilizer';
 import { PermissionDirective } from './shared/directives/permission.directive';
 import { FormComponent } from './components/form/form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TodoComponent } from './components/todo/todo.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,6 +50,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormComponent,
     ReactiveFormsModule,
     FormsModule,
+    TodoComponent,
     StoreRouterConnectingModule.forRoot({
       serializer:CustomSerializer
     })
